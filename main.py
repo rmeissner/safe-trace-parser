@@ -1,6 +1,7 @@
 import json
 import threading
 import time
+import sys
 
 from web3 import Web3, HTTPProvider, IPCProvider
 from web3.middleware import geth_poa_middleware
@@ -62,8 +63,7 @@ def check_tx(tx, transactions):
     check_calls(calls, info['value'], info['from'], transactions)
 
 def check_block(block):
-    print("Check block", block)
-    print()
+    print("Check block", block, end="\r")
     transactions = { }
     for tx in w3.eth.getBlock(block).transactions:
         check_tx(tx.hex(), transactions)
